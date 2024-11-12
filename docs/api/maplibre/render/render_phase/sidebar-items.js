@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["draw",""]],"struct":[["RenderPhase","A resource to collect and sort draw requests for specific `PhaseItems`."]]});
+window.SIDEBAR_ITEMS = {"enum":["RenderCommandResult"],"mod":["draw"],"struct":["DrawState","LayerItem","RenderPhase","TileMaskItem"],"trait":["Draw","PhaseItem","RenderCommand"]};

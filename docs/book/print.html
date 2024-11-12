@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>MapLibre Rust Documentation</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
+
+
         <!-- Custom HTML head -->
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -17,9 +19,11 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
@@ -27,16 +31,20 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="diff.css">
-    </head>
-    <body>
+
+
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -52,50 +60,58 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            html.classList.add("js");
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
+            sidebar_toggle.checked = sidebar === 'visible';
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="supported-platforms.html">Supported Platforms</a></li><li class="chapter-item expanded affix "><a href="developer-log.html">Developer Log</a></li><li class="chapter-item expanded "><a href="user-guide/index.html"><strong aria-hidden="true">1.</strong> User Guide</a></li><li class="chapter-item expanded "><a href="development-guide/index.html"><strong aria-hidden="true">2.</strong> Development Guide</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="development-guide/how-to-run.html"><strong aria-hidden="true">2.1.</strong> How to Run Demos</a></li><li class="chapter-item expanded "><a href="development-guide/building-libraries.html"><strong aria-hidden="true">2.2.</strong> Building Libraries</a></li><li class="chapter-item expanded "><a href="development-guide/debugging.html"><strong aria-hidden="true">2.3.</strong> Debugging</a></li></ol></li><li class="chapter-item expanded "><a href="development-documents/index.html"><strong aria-hidden="true">3.</strong> Development Documents</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="development-documents/architecture.html"><strong aria-hidden="true">3.1.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="development-documents/design.html"><strong aria-hidden="true">3.2.</strong> Design</a></li><li class="chapter-item expanded "><a href="development-documents/caching.html"><strong aria-hidden="true">3.3.</strong> Caching</a></li><li class="chapter-item expanded "><a href="development-documents/stencil-masking.html"><strong aria-hidden="true">3.4.</strong> Stencil Masking</a></li><li class="chapter-item expanded "><a href="development-documents/font-rendering.html"><strong aria-hidden="true">3.5.</strong> Font Rendering</a></li><li class="chapter-item expanded "><a href="development-documents/library-packaging.html"><strong aria-hidden="true">3.6.</strong> Library Packaging</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="development-documents/library-packaging/apple.html"><strong aria-hidden="true">3.6.1.</strong> Apple</a></li><li class="chapter-item expanded "><a href="development-documents/library-packaging/android.html"><strong aria-hidden="true">3.6.2.</strong> Android</a></li><li class="chapter-item expanded "><a href="development-documents/library-packaging/web.html"><strong aria-hidden="true">3.6.3.</strong> Web</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="appendix/index.html"><strong aria-hidden="true">4.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix/link-collection.html"><strong aria-hidden="true">4.1.</strong> Link Collection</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -112,6 +128,7 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -125,8 +142,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -138,9 +156,9 @@
                     <main>
                         <p><img src="./logo/maplibre-rs-with-text.svg" alt="" /></p>
 <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>maplibre-rs is a portable and performant vector maps renderer. </p>
+<p>maplibre-rs is a portable and performant vector maps renderer.</p>
 <h2 id="name"><a class="header" href="#name">Name</a></h2>
-<p>The name of the library is &quot;maplibre-rs&quot;. The camel-case version of it is &quot;MapLibreRs&quot;.</p>
+<p>The name of the library is "maplibre-rs". The camel-case version of it is "MapLibreRs".</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="supported-platforms"><a class="header" href="#supported-platforms">Supported Platforms</a></h1>
 <p>For development the following platforms are recommended:</p>
 <ul>
@@ -199,8 +217,8 @@ in progress</p>
 There are multiple demos of maplibre-rs for different targets. Some targets have prerequisites
 depending on your operating system.</p>
 <ul>
-<li><strong>maplibre-demo</strong> - targets Windows, MacOS and Linux, it is built directly with cargo.</li>
-<li><strong>apple</strong> - targets iOS and MacOS and relies on the xcode IDE.</li>
+<li><strong>maplibre-demo</strong> - targets Windows, macOS and Linux, it is built directly with cargo.</li>
+<li><strong>apple</strong> - targets iOS and macOS and relies on the xcode IDE.</li>
 <li><strong>android</strong> - targets Android devices and builds in Android Studio.</li>
 <li><strong>web</strong> - targets the web using a WASM binary.</li>
 <li><strong>maplibre-headless</strong> - <em>TBD</em></li>
@@ -211,7 +229,7 @@ depending on your operating system.</p>
 active toolchain. If you want to change the target of the build manually, use the cargo <code>--target</code> parameter.</p>
 </blockquote>
 <h2 id="maplibre-demo"><a class="header" href="#maplibre-demo">Maplibre-demo</a></h2>
-<h3 id="linuxmacos"><a class="header" href="#linuxmacos">Linux/MacOS</a></h3>
+<h3 id="linuxmacos"><a class="header" href="#linuxmacos">Linux/macOS</a></h3>
 <p>The build for desktop is very simple, you just have to run the following command from the root of the
 maplibre-rs project:</p>
 <pre><code class="language-bash">cargo run -p maplibre-demo
@@ -231,24 +249,24 @@ you will have to add to the SQLITE3_LIB_DIR environment variable.</p>
 <pre><code class="language-bash">cargo run -p maplibre-demo
 </code></pre>
 <h2 id="android"><a class="header" href="#android">Android</a></h2>
-<p>Start by installing the 
+<p>Start by installing the
 <a href="https://developer.android.com/studio?gclid=CjwKCAjwj42UBhAAEiwACIhADmF7uHXnEHGnmOgFnjp0Z6n-TnBvutC5faGA89lwouMIXiR6OXK4hBoCq78QAvD_BwE&amp;gclsrc=aw.ds">Android Studio IDE</a>.</p>
-<p>Make sure the NDK is installed. The Native Development Kit (NDK) is a set of tools that allows 
-you to use C and C++ code with Android. You have to install manually the version that is used in 
+<p>Make sure the NDK is installed. The Native Development Kit (NDK) is a set of tools that allows
+you to use C and C++ code with Android. You have to install manually the version that is used in
 <code>./android/gradle/lib/build.gradle</code>.</p>
 <pre><code>ANDROID STUDIO -&gt; tools -&gt; SDK manager -&gt; SDK tools -&gt; tick show package details -&gt; ndk (side by side)
 </code></pre>
 <p>Open the project within <code>./android/gradle</code> and create a new virtual device with the device manager. Minimum SDK version
-should be 21. This was tested on a x86_64 emulator. Finally, run the demo configuration. It should open your virtual device and 
+should be 21. This was tested on an x86_64 emulator. Finally, run the demo configuration. It should open your virtual device and
 run the maplibre-rs Android demo on it. Alternatively you can also run it on your own Android device.</p>
 <blockquote>
-<p>Note: If you are building for a x86 Android device, you probably need to install the following target using<br />
+<p>Note: If you are building for an x86 Android device, you probably need to install the following target using<br />
 rustup with the following command <code>rustup target add i686-linux-android</code>.</p>
 </blockquote>
 <blockquote>
 <p>Note: Android is configured to support OpenGL ES 3.1 (This API specification is supported by Android 5.0 (API level 21) and higher).
-Your Android device is required to support OpenGL ES 3.1 at least. There are some issues 
-<a href="https://stackoverflow.com/questions/40797975/android-emulator-and-opengl-es3-egl-bad-config">here</a> and 
+Your Android device is required to support OpenGL ES 3.1 at least. There are some issues
+<a href="https://stackoverflow.com/questions/40797975/android-emulator-and-opengl-es3-egl-bad-config">here</a> and
 <a href="https://www.reddit.com/r/Arcore/comments/8squbo/opengl_es_31_is_required_for_android_emulator_to/">here</a> that
 discuss configuration of Android Studio for OpenGL ES 3.1 support in emulators.</p>
 </blockquote>
@@ -262,25 +280,34 @@ Start by installing XCode and open the project within <code>./apple/xcode</code>
 <p>You can use XCode to run on a iOS Simulator or a real device. Install a simulator in XCode.
 Version 9 is the minimum version supported theoretically.</p>
 <p>Select the scheme called <em>example (iOS)</em> and click on run. This will start the iOS application.</p>
-<h3 id="macos"><a class="header" href="#macos">MacOS</a></h3>
+<h3 id="macos"><a class="header" href="#macos">macOS</a></h3>
 <p>As you might have seen in the maplibre-demo section, you can build Unix executables directly with Cargo.
-In order to build a proper MacOS application (in OSX terminology) you have to use the <code>./apple/xcode</code> project.</p>
+In order to build a proper macOS application (in OSX terminology) you have to use the <code>./apple/xcode</code> project.</p>
 <p>Open the project from the folder <code>./apple/xcode</code> with XCode. Select the scheme called <em>example (macOS)</em> and
-click on run. This will start the MacOS application. </p>
+click on run. This will start the macOS application.</p>
 <blockquote>
-<p>The minimum target OSX version for the MacOS build is defined inside <em>Build settings -&gt; Deployment -&gt; MacOS deployment target</em>.
+<p>The minimum target OSX version for the macOS build is defined inside <em>Build settings -&gt; Deployment -&gt; macOS deployment target</em>.
 If you are using a lower version of OSX, you will not be able to run the application on your computer.</p>
 </blockquote>
 <h2 id="web-webgl-webgpu"><a class="header" href="#web-webgl-webgpu">Web (WebGL, WebGPU)</a></h2>
-<p>If you have a browser which already supports a recent version of the WebGPU specification then you can start a
-development server using the following commands.</p>
-<pre><code class="language-bash">cd web
-npm run start
+<p>You need to first build the library for WebGL or WebGPU. Optionally, you can also enabled multi-threading support,
+which requires that the library is used in a secure environment:
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/isSecureContext">isSecureContext</a>
+and <a href="https://developer.mozilla.org/en-US/docs/Web/API/crossOriginIsolated">crossOriginIsolated</a>.
+The demo runs this such an environment.</p>
+<p>If you have a browser which already supports a recent version of the WebGPU specification then you can build the library
+with WebGPU:</p>
+<pre><code class="language-bash">just web-lib build # WebGPU
 </code></pre>
-<p>If you want to run maplibre-rs with WebGL which is supported on every major browser, then you have to use the following
-command.</p>
-<pre><code class="language-bash">just web-lib esbuild
-just web-demo start
+<p>If not, then you must enable WebGL support:</p>
+<pre><code class="language-bash">just web-lib build --webgl # WebGL
+just web-lib build --webgl --multithreaded # WebGL + multithreaded
+</code></pre>
+<p>Instead of building it is also possible to watch for changes. The same flags as with <code>web-lib build</code> are supported:</p>
+<pre><code class="language-bash">just web-lib watch --webgl
+</code></pre>
+<p>After building the library you can run the demo server:</p>
+<pre><code class="language-bash">just web-demo start
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="building-libraries"><a class="header" href="#building-libraries">Building Libraries</a></h1>
 <p>TODO</p>
@@ -294,16 +321,32 @@ just web-demo start
 <a href="https://renderdoc.org/">RenderDoc</a>.</li>
 </ul>
 <h2 id="frame-profiling"><a class="header" href="#frame-profiling">Frame Profiling</a></h2>
-<ul>
-<li>tracing crate</li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="development-documents"><a class="header" href="#development-documents">Development Documents</a></h1>
+<p>maplibre-rs is set up to use the Tracy profiler (https://github.com/wolfpld/tracy). It's mainly designed for C++ but has some Rust support.</p>
+<p>The connection to Rust uses a project that connects to the tracing crate (https://github.com/nagisa/rust_tracy_client). This uses a set of three crates (tracing-tracy, tracy-client, tracy-client-sys).</p>
+<p>Unfortunately, the Tracy project does not use semantic versioning, whereas tracing-tracy, tracy-client, tracy-client sys do.</p>
+<p>The current version of the Rust client is at v0.8.1 of Tracy. See the correlating versions in the table below (original at https://github.com/nagisa/rust_tracy_client#version-support-table):</p>
+<div class="table-wrapper"><table><thead><tr><th>Tracy</th><th>tracy-client-sys</th><th>tracy-client</th><th>tracing-tracy</th></tr></thead><tbody>
+<tr><td>0.7.1</td><td>0.9.0</td><td>0.8.0</td><td>0.2.0</td></tr>
+<tr><td>0.7.3</td><td>0.10.0</td><td>0.9.0</td><td>0.3.0</td></tr>
+<tr><td>0.7.4</td><td>0.11.0</td><td>0.10.0</td><td>0.4.0</td></tr>
+<tr><td>0.7.5</td><td>0.12.0</td><td>0.11.0</td><td>0.5.0</td></tr>
+<tr><td>0.7.6</td><td>0.13.0, 0.14.0</td><td>0.12.*</td><td>0.6.*</td></tr>
+<tr><td>v0.7.7</td><td>0.15.0</td><td>0.12.*</td><td>0.6.*</td></tr>
+<tr><td>v0.7.8</td><td>0.16.0</td><td>0.12.*</td><td>0.6.*</td></tr>
+<tr><td>v0.7.8</td><td>0.16.0</td><td>0.12.*</td><td>0.7.*</td></tr>
+<tr><td>v0.7.8</td><td>0.16.0</td><td>0.12.*</td><td>0.8.*</td></tr>
+<tr><td>v0.8.1</td><td>0.17.*</td><td>0.13.*</td><td>0.9.*</td></tr>
+<tr><td>v0.8.1</td><td>0.17.*</td><td>0.14.*</td><td>0.10.*</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="development-documents"><a class="header" href="#development-documents">Development Documents</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
 <h2 id="rendering-architecture"><a class="header" href="#rendering-architecture">Rendering Architecture</a></h2>
 <p>The big picture of wgpu is as follows:</p>
 <p><img src="https://raw.githubusercontent.com/gfx-rs/wgpu/8f02b73655aff641361822a8ac0347fc47622b49/etc/big-picture.png" alt="" /></p>
 <p>A simplified version is shown below:</p>
 <p><img src="development-documents/./figures/render-stack.drawio.svg" alt="" /></p>
+<p>A further simplified version:</p>
+<p><img src="development-documents/./figures/simplified-render-stack.drawio.svg" alt="" /></p>
 <p>Notes:</p>
 <ul>
 <li>wgpu is able to create an interface through which we can reach any device with a GPU.</li>
@@ -311,7 +354,7 @@ just web-demo start
 <p>Notes:</p>
 <ul>
 <li>The ability to use shared memory or the atomic instruction set of WASM comes by enabling compilation features.</li>
-<li><code>threads</code> support here does not introduce threads like we know them from Linux. It introduces </li>
+<li><code>threads</code> support here does not introduce threads like we know them from Linux. It introduces</li>
 <li><a href="https://github.com/WebAssembly/threads/blob/main/proposals/threads/Overview.md">support for atomics</a> like
 specified in a working draft to WebAssembly. Threads are simulated using WebWorkers by the browser.</li>
 </ul>
@@ -319,15 +362,15 @@ specified in a working draft to WebAssembly. Threads are simulated using WebWork
 <script src="https://unpkg.com/@panzoom/panzoom@4.5.0/dist/panzoom.min.js"></script>
 <h2 id="domain-model"><a class="header" href="#domain-model">Domain Model</a></h2>
 <div  style="overflow: hidden; border-style: solid; width: 110%">
-<img src="development-documents/./figures/domain-model.drawio.svg" class="diagram" />
+<img src="development-documents/./figures/domain-model.drawio.svg" class="diagram" alt="diagram" />
 </div>
 <h2 id="data-model"><a class="header" href="#data-model">Data Model</a></h2>
 <div  style="overflow: hidden; border-style: solid; width: 110%">
-<img src="development-documents/./figures/data-model.drawio.svg" class="diagram" />
+<img src="development-documents/./figures/data-model.drawio.svg" class="diagram" alt="diagram" />
 </div>
 <h2 id="crate-and-project-structure"><a class="header" href="#crate-and-project-structure">Crate and Project Structure</a></h2>
 <div  style="overflow: hidden; border-style: solid; width: 110%">
-<img src="development-documents/./figures/crate-and-projects-structure.drawio.svg" class="diagram" />
+<img src="development-documents/./figures/crate-and-projects-structure.drawio.svg" class="diagram" alt="diagram" />
 </div>
 <script>
     Array.from(document.getElementsByClassName('diagram')).forEach(e => {
@@ -342,7 +385,7 @@ the format of the network requests. The maplibre-rs library is not introducing a
 honor HTTP headers which configure caching. This is very important for fetched tiles, as they can have an expiry date.</p>
 <ul>
 <li>On the web the browser is automatically caching raw tiles.</li>
-<li>On Linux, MacOs, iOS and Android we are
+<li>On Linux, macOS, iOS and Android we are
 utilizing <a href="https://crates.io/crates/reqwest-middleware-cache/">reqwest-middleware-cache</a>, which writes raw network
 requests to disk.</li>
 </ul>
@@ -1402,60 +1445,60 @@ to run before the linking phase (drag and drop it to the top).</p>
 the <code>$ARCHS</code>
 environment variable, as the others seem unreliable. Note that this can include multiple architectures, unless the build
 setting <code>ONLY_ACTIVE_ARCH</code> is set to <code>YES</code>.</p>
-<pre><code class="language-bash">arch=&quot;unknown&quot;
-vendor=&quot;apple&quot;
-os_type=&quot;unknown&quot;
-environment_type=&quot;&quot;
+<pre><code class="language-bash">arch="unknown"
+vendor="apple"
+os_type="unknown"
+environment_type=""
 
-mode=&quot;&quot;
+mode=""
 
-echo &quot;ARCH: $ARCHS&quot;
+echo "ARCH: $ARCHS"
 
-if [[ $CONFIGURATION == &quot;Release&quot; ]]
+if [[ $CONFIGURATION == "Release" ]]
 then
-    mode=&quot;--release&quot;
+    mode="--release"
 fi
 
-if [[ $ARCHS == &quot;x86_64&quot; ]]
+if [[ $ARCHS == "x86_64" ]]
 then
-    arch=&quot;x86_64&quot;
-elif [[ $ARCHS == &quot;arm64&quot; ]]
+    arch="x86_64"
+elif [[ $ARCHS == "arm64" ]]
 then
-    arch=&quot;aarch64&quot;
+    arch="aarch64"
 fi
 
-if [[ $SDK_NAME == *&quot;iphoneos&quot;* ]]
+if [[ $SDK_NAME == *"iphoneos"* ]]
 then
-    os_type=&quot;ios&quot;
-elif [[ $SDK_NAME == *&quot;macos&quot;* ]]
+    os_type="ios"
+elif [[ $SDK_NAME == *"macos"* ]]
 then
-    os_type=&quot;darwin&quot;
-elif [[ $SDK_NAME == *&quot;iphonesimulator&quot;* ]]
+    os_type="darwin"
+elif [[ $SDK_NAME == *"iphonesimulator"* ]]
 then
-    os_type=&quot;ios&quot;
-    if [[ $ARCHS == &quot;arm64&quot; ]]
+    os_type="ios"
+    if [[ $ARCHS == "arm64" ]]
     then
-        environment_type=&quot;sim&quot;
+        environment_type="sim"
     fi
 fi
 
 
-triplet=&quot;$arch-$vendor-$os_type&quot;
+triplet="$arch-$vendor-$os_type"
 
-if [ -n &quot;$environment_type&quot; ]
+if [ -n "$environment_type" ]
 then
-    triplet=&quot;$triplet-$environment_type&quot;
+    triplet="$triplet-$environment_type"
 fi
 
-echo &quot;Mode: $mode&quot;
-echo &quot;Triplet: $triplet&quot;
-echo &quot;Shell: $SHELL&quot;
+echo "Mode: $mode"
+echo "Triplet: $triplet"
+echo "Shell: $SHELL"
 
-cmd=&quot;export HOME=$HOME &amp;&amp; . $HOME/.cargo/env &amp;&amp; cargo build -p apple $mode --target $triplet --lib&quot;
+cmd="export HOME=$HOME &amp;&amp; . $HOME/.cargo/env &amp;&amp; cargo build -p apple $mode --target $triplet --lib"
 
-echo &quot;Command: $cmd&quot;
+echo "Command: $cmd"
 
-env -i /bin/bash -c &quot;$cmd&quot;
+env -i /bin/bash -c "$cmd"
 </code></pre>
 <h3 id="build-settings"><a class="header" href="#build-settings">Build Settings</a></h3>
 <div class="d2h-file-wrapper" data-lang="pbxproj">
@@ -2878,7 +2921,7 @@ env -i /bin/bash -c &quot;$cmd&quot;
 <li><code>DEVELOPMENT_TEAM</code>: No development team is set</li>
 <li><code>LIBRARY_SEARCH_PATHS[sdk=x][arch=y]</code>: We set the path for the <code>libmaplibre_apple.a</code> lies</li>
 <li><code>MACH_O_TYPE</code> / <code>SKIP_INSTALL</code>: If this is not set to <code>staticlib</code> and <code>NO</code>, then the <code>libmaplibre_apple.a</code> binary is not included in the final framework xcarchive.</li>
-<li><code>SUPPORTED_PLATFORMS</code>: Explicitly says that this library works on any platform. </li>
+<li><code>SUPPORTED_PLATFORMS</code>: Explicitly says that this library works on any platform.</li>
 <li><code>SUPPORTS_MACCATALYST</code>: Explicitly says that this library works on Mac Catalyst.</li>
 </ul>
 <p>The same settings are done for Release and Debug.</p>
@@ -4017,7 +4060,7 @@ This native activity is referenced in the ´AndroidManifest.xml` by defining the
 <p>The ESM module format is the standard nowadays which should be followed. If a JS bundler encounters an ESM
 module it can resolve WebAssembly files or WebWorkers dynamically.
 The following syntax is used to resolve referenced WebWorkers:</p>
-<pre><code class="language-ts">new Worker(new URL(&quot;./pool.worker.ts&quot;, import.meta.url), {
+<pre><code class="language-ts">new Worker(new URL("./multithreaded-pool.worker.ts", import.meta.url), {
     type: 'module'
 });
 </code></pre>
@@ -4026,7 +4069,7 @@ The following syntax is used to resolve referenced WebWorkers:</p>
 </code></pre>
 <h3 id="iife-immediately-invoked-function-expression"><a class="header" href="#iife-immediately-invoked-function-expression">IIFE (immediately-invoked function expression)</a></h3>
 <blockquote>
-<p>This format is used when including maplibre-rs in a <code>&lt;script&gt;</code> tag. The library is &quot;written&quot; onto the window/global
+<p>This format is used when including maplibre-rs in a <code>&lt;script&gt;</code> tag. The library is "written" onto the window/global
 object. This allows quick prototyping/playgrounds/experiments using maplibre-rs.</p>
 </blockquote>
 <p>In order to support this we need to create a bundle which works on any modern browser. Additionally, a WASM file and
@@ -4035,8 +4078,8 @@ these libraries have to specify where WASM or non-inlined WebWorkers are located
 <p>Both assets could be inlined theoretically. This is common for WebWorkers, but not for WASM files.</p>
 <h3 id="umd"><a class="header" href="#umd">UMD</a></h3>
 <blockquote>
-<p>UMD modules are needed when creating a library which should run in Node as well as browsers. This is not a usecase
-for maplibre-rs. If we support node, then we probably would ship a separate package called &quot;maplibre-rs-node&quot; which
+<p>UMD modules are needed when creating a library which should run in Node as well as browsers. This is not a use case
+for maplibre-rs. If we support node, then we probably would ship a separate package called "maplibre-rs-node" which
 bundles to CJS directly.</p>
 </blockquote>
 <h3 id="cjscommonjs"><a class="header" href="#cjscommonjs">CJS/CommonJS</a></h3>
@@ -4092,14 +4135,14 @@ all other bundlers.</p>
 <ul>
 <li>IIFI: The esbuild bundler translates to <code>new URL('index_bg.wasm', import.meta.url);</code> to
 <pre><code class="language-js">var __currentScriptUrl__ = document.currentScript &amp;&amp; document.currentScript.src || document.baseURI;
-new URL(&quot;./assets/index_bg.wasm?emit=file&quot;, __currentScriptUrl__);
+new URL("./assets/index_bg.wasm?emit=file", __currentScriptUrl__);
 </code></pre>
 </li>
 </ul>
 <p>See config in <code>web/lib/build.mjs</code> for an example usage.</p>
 <h3 id="babel--typescript"><a class="header" href="#babel--typescript">Babel &amp; TypeScript</a></h3>
 <p>Babel and TypeScript both can produce ESM modules, but they <strong>fail with transforming references within the source code</strong>
-like <code>new URL(&quot;./pool.worker.ts&quot;, import.meta.url)</code>. There exist some Babel plugins, but none of them is stable.
+like <code>new URL("./multithreaded-pool.worker.ts", import.meta.url)</code>. There exist some Babel plugins, but none of them is stable.
 Therefore, we actually need a proper bundler which supports outputting ESM modules.
 The only stable solution to this is Parcel. Parcel also has good documentation around the bundling of WebWorkers.</p>
 <h3 id="webpack"><a class="header" href="#webpack">WebPack</a></h3>
@@ -4112,23 +4155,23 @@ for WebPack makes including Cargo projects easy.</p>
 </ul>
 <p>Example scripts for <code>package.json</code>:</p>
 <pre><code class="language-json">{
-  &quot;scripts&quot;: {
-    &quot;webpack&quot;: &quot;webpack --mode=development&quot;,
-    &quot;webpack-webgl&quot;: &quot;npm run build -- --env webgl&quot;,
-    &quot;webpack-production&quot;: &quot;webpack --mode=production&quot;,
-    &quot;webpack-webgl-production&quot;: &quot;npm run production-build -- --env webgl&quot;
+  "scripts": {
+    "webpack": "webpack --mode=development",
+    "webpack-webgl": "npm run build -- --env webgl",
+    "webpack-production": "webpack --mode=production",
+    "webpack-webgl-production": "npm run production-build -- --env webgl"
   }
 }
 </code></pre>
 <p>Example config:</p>
-<pre><code class="language-js">const path = require(&quot;path&quot;);
-const webpack = require(&quot;webpack&quot;);
-const WasmPackPlugin = require(&quot;@wasm-tool/wasm-pack-plugin&quot;);
+<pre><code class="language-js">const path = require("path");
+const webpack = require("webpack");
+const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 
 let dist = path.join(__dirname, 'dist/maplibre-rs');
 module.exports = (env) =&gt; ({
-    mode: &quot;development&quot;,
-    entry: &quot;./src/index.ts&quot;,
+    mode: "development",
+    entry: "./src/index.ts",
     experiments: {
         syncWebAssembly: true,
     },
@@ -4138,7 +4181,7 @@ module.exports = (env) =&gt; ({
     },
     output: {
         path: dist,
-        filename: &quot;maplibre-rs.js&quot;,
+        filename: "maplibre-rs.js",
         library: {
             name: 'maplibre_rs',
             type: 'umd',
@@ -4180,14 +4223,14 @@ module.exports = (env) =&gt; ({
             // Optional array of absolute paths to directories, changes to which
             // will trigger the build.
             // watchDirectories: [
-            //   path.resolve(__dirname, &quot;another-crate/src&quot;)
+            //   path.resolve(__dirname, "another-crate/src")
             // ],
 
             // The same as the `--out-dir` option for `wasm-pack`
             outDir: path.resolve(__dirname, 'src/wasm-pack'),
 
             // The same as the `--out-name` option for `wasm-pack`
-            // outName: &quot;index&quot;,
+            // outName: "index",
 
             // If defined, `forceWatch` will force activate/deactivate watch mode for
             // `.rs` files.
@@ -4202,7 +4245,7 @@ module.exports = (env) =&gt; ({
             //
             // the mode `development` makes `wasm-pack` build in `debug` mode.
             // the mode `production` makes `wasm-pack` build in `release` mode.
-            // forceMode: &quot;production&quot;,
+            // forceMode: "production",
 
             // Controls plugin output verbosity, either 'info' or 'error'.
             // Defaults to 'info'.
@@ -4216,38 +4259,38 @@ module.exports = (env) =&gt; ({
 bundlers documentations around this feature is missing. In the latest Parcel version inlining WebWorkers is not working.</p>
 <ul>
 <li>CJS: The Parcel bundler translates to <code>new URL('index_bg.wasm', import.meta.url);</code>
-to <code>new URL(&quot;index_bg.wasm&quot;, &quot;file:&quot; + __filename);</code>
+to <code>new URL("index_bg.wasm", "file:" + __filename);</code>
 While depending on <code>file:</code> and <code>filename</code> works for NodeJS, it is unsupported in the browser.</li>
 </ul>
 <p>Example scripts for <code>package.json</code>:</p>
 <pre><code class="language-json">{
-  &quot;scripts&quot;: {
-    &quot;parcel&quot;: &quot;npm run clean &amp;&amp; npm run wasm-pack &amp;&amp; WEBGL=false parcel build --no-cache src/index.ts&quot;,
-    &quot;parcel-webgl&quot;: &quot;npm run clean &amp;&amp; FEATURES=web-webgl npm run wasm-pack &amp;&amp; WEBGL=true parcel build --no-cache src/index.ts&quot;
+  "scripts": {
+    "parcel": "npm run clean &amp;&amp; npm run wasm-pack &amp;&amp; WEBGL=false parcel build --no-cache src/index.ts",
+    "parcel-webgl": "npm run clean &amp;&amp; FEATURES=web-webgl npm run wasm-pack &amp;&amp; WEBGL=true parcel build --no-cache src/index.ts"
   }
 }
 </code></pre>
 <p>Example config in `package.json:</p>
 <pre><code class="language-json">{
-  &quot;module&quot;: &quot;dist/parcel-esm/module.js&quot;,
-  &quot;main&quot;: &quot;dist/parcel-cjs/main.js&quot;,
-  &quot;types&quot;: &quot;dist/parcel/types.d.ts&quot;,
-  &quot;targets&quot;: {
-    &quot;main&quot;: {
-      &quot;distDir&quot;: &quot;./dist/parcel-cjs&quot;,
-      &quot;context&quot;: &quot;browser&quot;,
-      &quot;outputFormat&quot;: &quot;commonjs&quot;
+  "module": "dist/parcel-esm/module.js",
+  "main": "dist/parcel-cjs/main.js",
+  "types": "dist/parcel/types.d.ts",
+  "targets": {
+    "main": {
+      "distDir": "./dist/parcel-cjs",
+      "context": "browser",
+      "outputFormat": "commonjs"
     },
-    &quot;module&quot;: {
-      &quot;distDir&quot;: &quot;./dist/parcel-esm&quot;,
-      &quot;context&quot;: &quot;browser&quot;,
-      &quot;outputFormat&quot;: &quot;esmodule&quot;
+    "module": {
+      "distDir": "./dist/parcel-esm",
+      "context": "browser",
+      "outputFormat": "esmodule"
     }
   },
-  &quot;@parcel/transformer-js&quot;: {
-    &quot;inlineFS&quot;: false,
-    &quot;inlineEnvironment&quot;: [
-      &quot;WEBGL&quot;
+  "@parcel/transformer-js": {
+    "inlineFS": false,
+    "inlineEnvironment": [
+      "WEBGL"
     ]
   }
 }
@@ -4288,7 +4331,7 @@ While depending on <code>file:</code> and <code>filename</code> works for NodeJS
 <li>Very simple text rendering</li>
 <li>Cache tessellation results
 <ul>
-<li>We have three &quot;caches&quot;: downloaded tiles, tessellated tiles, gpu tiles</li>
+<li>We have three "caches": downloaded tiles, tessellated tiles, gpu tiles</li>
 </ul>
 </li>
 <li>Handle missing tiles</li>
@@ -4328,7 +4371,7 @@ Because the data is probably not available this is a very hard challenge.</p>
 <ul>
 <li><a href="https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection">Google Maps Projection</a></li>
 <li><a href="https://gist.github.com/maptiler/fddb5ce33ba995d5523de9afdf8ef118">Grid Calculation Examples</a></li>
-<li><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">Slippy map tilenames</a> (also known as XYZ) </li>
+<li><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">Slippy map tilenames</a> (also known as XYZ)</li>
 <li><a href="https://wiki.osgeo.org/wiki/Tile_Map_Service_Specification#TileMap_Diagram">TMS</a></li>
 <li><a href="https://www.mapbox.com/blog/adaptive-projections">Mapbox Adaptive Projections</a></li>
 <li><a href="https://docs.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system">Bing Map Tile System</a></li>
@@ -4438,36 +4481,334 @@ Because the data is probably not available this is a very hard challenge.</p>
 <li>https://crates.io/crates/pareen</li>
 <li>https://crates.io/crates/keyframe</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><ul>
+<li>Start Date: 2022-10-29</li>
+<li>RFC PR: <a href="https://github.com/maplibre/maplibre-rs/pull/??">maplibre/maplibre-rs#??</a></li>
+<li>maplibre-rs Issue: N/A</li>
+</ul>
+<h1 id="summary"><a class="header" href="#summary">Summary</a></h1>
+<p>The "RFC" (request for comments) process is intended to provide a
+consistent and controlled path for new features to enter the map renderer
+and standard libraries, so that all stakeholders can be confident about
+the direction the map renderer is evolving in.</p>
+<p>This RFC is copied from <a href="https://github.com/rust-lang/rfcs">rust-lang/rfcs</a>.
+Thanks to everyone who contributed to the Rust RFC process RFC! Thanks for the
+great inspiration!</p>
+<h1 id="motivation"><a class="header" href="#motivation">Motivation</a></h1>
+<p>The freewheeling way that we add new features to maplibre-rs has been good for
+early development, but for maplibre-rs to become a mature platform we need to
+develop some more self-discipline when it comes to changing the system.
+This is a proposal for a more principled RFC process to make it
+a more integral part of the overall development process, and one that is
+followed consistently to introduce features to maplibre-rs.</p>
+<h1 id="detailed-design"><a class="header" href="#detailed-design">Detailed design</a></h1>
+<p>Many changes, including bug fixes and documentation improvements can be
+implemented and reviewed via the normal GitHub pull request workflow.</p>
+<p>Some changes though are "substantial", and we ask that these be put
+through a bit of a design process and produce a consensus among the maplibre-rs
+community.</p>
+<h2 id="when-you-need-to-follow-this-process"><a class="header" href="#when-you-need-to-follow-this-process">When you need to follow this process</a></h2>
+<p>You need to follow this process if you intend to make "substantial"
+changes to the maplibre-rs distribution. What constitutes a "substantial"
+change is evolving based on community norms, but may include the following.</p>
+<ul>
+<li>Any semantic or syntactic change to the map renderer that is not a bugfix.</li>
+<li>Removing map renderer features, including those that are feature-gated.</li>
+</ul>
+<p>Some changes do not require an RFC:</p>
+<ul>
+<li>Rephrasing, reorganizing, refactoring, or otherwise "changing shape
+does not change meaning".</li>
+<li>Additions that strictly improve objective, numerical quality
+criteria (warning removal, speedup, better platform coverage, more
+parallelism, trap more errors, etc.)</li>
+<li>Additions only likely to be <em>noticed by</em> other developers-of-maplibre-rs,
+invisible to users-of-maplibre-rs.</li>
+</ul>
+<p>If you submit a pull request to implement a new feature without going
+through the RFC process, it may be closed with a polite request to
+submit an RFC first.</p>
+<h2 id="what-the-process-is"><a class="header" href="#what-the-process-is">What the process is</a></h2>
+<p>In short, to get a major feature added to maplibre-rs, one must first get the
+RFC merged into the RFC repo as a markdown file. At that point the RFC
+is 'active' and may be implemented with the goal of eventual inclusion
+into maplibre-rs.</p>
+<ul>
+<li>Fork the repo https://github.com/maplibre/maplibre-rs</li>
+<li>Copy <code>rfc/0000-template.md</code> to <code>rfc/0000-my-feature.md</code> (where
+'my-feature' is descriptive. don't assign an RFC number yet).</li>
+<li>Fill in the RFC</li>
+<li>Submit a pull request. The pull request is the time to get review of
+the design from the larger community.</li>
+<li>Build consensus and integrate feedback. RFCs that have broad support
+are much more likely to make progress than those that don't receive any
+comments.</li>
+</ul>
+<p>Eventually, somebody on the maplibre-rs team will either accept the RFC by
+merging the pull request, at which point the RFC is 'active', or
+reject it by closing the pull request.</p>
+<p>Who ever merges the RFC should do the following:</p>
+<ul>
+<li>Assign an id, using the PR number of the RFC pull request. (If the RFC
+has multiple pull requests associated with it, choose one PR number,
+preferably the minimal one.)</li>
+<li>Add the file in the <code>docs/src/rfc/</code> directory.</li>
+<li>Create a corresponding issue on <a href="https://github.com/maplibre/maplibre-rs">maplibre-rs repo</a></li>
+<li>Fill in the remaining metadata in the RFC header, including links for
+the original pull request(s) and the newly created maplibre-rs issue.</li>
+<li>Communicate that given RFC is now considered 'active' on the chat platform of maplibre-rs.</li>
+<li>Commit everything.</li>
+</ul>
+<p>Once an RFC becomes active then authors may implement it and submit the
+feature as a pull request to the maplibre-rs repo. An 'active' is not a rubber
+stamp, and in particular still does not mean the feature will ultimately
+be merged; it does mean that in principle all the major stakeholders
+have agreed to the feature and are amenable to merging it.</p>
+<p>Modifications to active RFC's can be done in followup PR's. An RFC that
+makes it through the entire process to implementation is considered
+'complete'; an RFC that fails after becoming active is 'inactive'.</p>
+<h1 id="alternatives"><a class="header" href="#alternatives">Alternatives</a></h1>
+<p>Retain the current informal RFC process. The newly proposed RFC process is
+designed to improve over the informal process in the following ways:</p>
+<ul>
+<li>Discourage non-actionable or vague RFCs</li>
+<li>Ensure that all serious RFCs are considered equally</li>
+<li>Give confidence to those with a stake in maplibre-rs development that they
+understand why new features are being merged</li>
+</ul>
+<p>As an alternative, we could adopt an even stricter RFC process than the one proposed here.
+If desired, we should likely look to Python's <a href="http://legacy.python.org/dev/peps/pep-0001/">PEP</a> process for inspiration.</p>
+<h1 id="unresolved-questions"><a class="header" href="#unresolved-questions">Unresolved questions</a></h1>
+<ol>
+<li>Does this RFC strike a favorable balance between formality and agility?</li>
+<li>Does this RFC successfully address the aforementioned issues with the current
+informal RFC process?</li>
+<li>Should we retain rejected RFCs in the archive?</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><ul>
+<li>Feature Name: (fill me in with a unique ident, <code>my_awesome_feature</code>)</li>
+<li>Start Date: (fill me in with today's date, YYYY-MM-DD)</li>
+<li>RFC PR: <a href="https://github.com/maplibre/maplibre-rs/pull/0000">maplibre/maplibre-rs#0000</a></li>
+<li>maplibre-rs Issue: <a href="https://github.com/maplibre/maplibre-rs/issues/0000">maplibre/maplibre-rs#0000</a></li>
+</ul>
+<h1 id="summary-1"><a class="header" href="#summary-1">Summary</a></h1>
+<p>One paragraph explanation of the feature.</p>
+<h1 id="motivation-1"><a class="header" href="#motivation-1">Motivation</a></h1>
+<p>Why are we doing this? What use cases does it support? What is the expected outcome?</p>
+<h1 id="guide-level-explanation"><a class="header" href="#guide-level-explanation">Guide-level explanation</a></h1>
+<p>Explain the proposal as if it was already included in the project, and you were teaching it to another maplibre-rs user.
+That generally means:</p>
+<ul>
+<li>Introducing new named concepts.</li>
+<li>Explaining the feature largely in terms of examples.</li>
+<li>Explaining how maplibre-rs users should <em>think</em> about the feature, and how it should impact the way they use
+maplibre-rs. It should explain the impact as concretely as possible.</li>
+<li>If applicable, provide sample error messages, deprecation warnings, or migration guidance.</li>
+<li>If applicable, describe the differences between teaching this to the existing maplibre-rs users and new maplibre-rs users.</li>
+</ul>
+<p>For implementation-oriented RFCs (e.g. for internals), this section should focus on how maplibre-rs contributors should
+think about the change, and give examples of its concrete impact. For policy RFCs, this section should provide an
+example-driven introduction to the policy, and explain its impact in concrete terms.</p>
+<h1 id="reference-level-explanation"><a class="header" href="#reference-level-explanation">Reference-level explanation</a></h1>
+<p>This is the technical portion of the RFC. Explain the design in sufficient detail that:</p>
+<ul>
+<li>Its interaction with other features is clear.</li>
+<li>It is reasonably clear how the feature would be implemented.</li>
+<li>Corner cases are dissected by example.</li>
+</ul>
+<p>The section should return to the examples given in the previous section, and explain more fully how the detailed
+proposal makes those examples work.</p>
+<h1 id="drawbacks"><a class="header" href="#drawbacks">Drawbacks</a></h1>
+<p>Why should we <em>not</em> do this?</p>
+<h1 id="rationale-and-alternatives"><a class="header" href="#rationale-and-alternatives">Rationale and alternatives</a></h1>
+<ul>
+<li>Why is this design the best in the space of possible designs?</li>
+<li>What other designs have been considered and what is the rationale for not choosing them?</li>
+<li>What is the impact of not doing this?</li>
+</ul>
+<h1 id="prior-art"><a class="header" href="#prior-art">Prior art</a></h1>
+<p>Discuss prior art, both the good and the bad, in relation to this proposal.
+A few examples of what this can include are:</p>
+<ul>
+<li>Does this feature exist in other map renderers and what experience have their community had?</li>
+<li>For community proposals: Is this done by some other community and what were their experiences with it?</li>
+<li>For other teams: What lessons can we learn from what other communities have done here?</li>
+<li>Papers: Are there any published papers or great posts that discuss this? If you have some relevant papers to refer to,
+this can serve as a more detailed theoretical background.</li>
+</ul>
+<p>This section is intended to encourage you as an author to think about the lessons from other renderers, provide readers
+of your RFC with a fuller picture.
+If there is no prior art, that is fine - your ideas are interesting to us whether they are brand new or if it is an
+adaptation from other map renderers.</p>
+<p>Note that while precedent set by other map renderers is some motivation, it does not on its own motivate an RFC.</p>
+<h1 id="unresolved-questions-1"><a class="header" href="#unresolved-questions-1">Unresolved questions</a></h1>
+<ul>
+<li>What parts of the design do you expect to resolve through the RFC process before this gets merged?</li>
+<li>What parts of the design do you expect to resolve through the implementation of this feature before stabilization?</li>
+<li>What related issues do you consider out of scope for this RFC that could be addressed in the future independently of
+the solution that comes out of this RFC?</li>
+</ul>
+<h1 id="future-possibilities"><a class="header" href="#future-possibilities">Future possibilities</a></h1>
+<p>Think about what the natural extension and evolution of your proposal would
+be and how it would affect the renderer and project as a whole in a holistic
+way. Try to use this section as a tool to more fully consider all possible
+interactions with the project and renderer in your proposal.
+Also consider how this all fits into the roadmap for the project
+and of the relevant sub-team.</p>
+<p>This is also a good place to "dump ideas", if they are out of scope for the
+RFC you are writing but otherwise related.</p>
+<p>If you have tried and cannot think of any future possibilities,
+you may simply state that you cannot think of anything.</p>
+<p>Note that having something written down in the future-possibilities section
+is not a reason to accept the current or a future RFC; such notes should be
+in the section on motivation or rationale in this or subsequent RFCs.
+The section merely provides additional information.</p>
+<div style="break-before: page; page-break-before: always;"></div><ul>
+<li>Start Date: 2022-10-29</li>
+<li>RFC PR: <a href="https://github.com/maplibre/maplibre-rs/pull/??">maplibre/maplibre-rs#??</a></li>
+<li>maplibre-rs Issue: N/A</li>
+</ul>
+<h1 id="summary-2"><a class="header" href="#summary-2">Summary</a></h1>
+<p>The "RFC" (request for comments) process is intended to provide a
+consistent and controlled path for new features to enter the map renderer
+and standard libraries, so that all stakeholders can be confident about
+the direction the map renderer is evolving in.</p>
+<p>This RFC is copied from <a href="https://github.com/rust-lang/rfcs">rust-lang/rfcs</a>.
+Thanks to everyone who contributed to the Rust RFC process RFC! Thanks for the
+great inspiration!</p>
+<h1 id="motivation-2"><a class="header" href="#motivation-2">Motivation</a></h1>
+<p>The freewheeling way that we add new features to maplibre-rs has been good for
+early development, but for maplibre-rs to become a mature platform we need to
+develop some more self-discipline when it comes to changing the system.
+This is a proposal for a more principled RFC process to make it
+a more integral part of the overall development process, and one that is
+followed consistently to introduce features to maplibre-rs.</p>
+<h1 id="detailed-design-1"><a class="header" href="#detailed-design-1">Detailed design</a></h1>
+<p>Many changes, including bug fixes and documentation improvements can be
+implemented and reviewed via the normal GitHub pull request workflow.</p>
+<p>Some changes though are "substantial", and we ask that these be put
+through a bit of a design process and produce a consensus among the maplibre-rs
+community.</p>
+<h2 id="when-you-need-to-follow-this-process-1"><a class="header" href="#when-you-need-to-follow-this-process-1">When you need to follow this process</a></h2>
+<p>You need to follow this process if you intend to make "substantial"
+changes to the maplibre-rs distribution. What constitutes a "substantial"
+change is evolving based on community norms, but may include the following.</p>
+<ul>
+<li>Any semantic or syntactic change to the map renderer that is not a bugfix.</li>
+<li>Removing map renderer features, including those that are feature-gated.</li>
+</ul>
+<p>Some changes do not require an RFC:</p>
+<ul>
+<li>Rephrasing, reorganizing, refactoring, or otherwise "changing shape
+does not change meaning".</li>
+<li>Additions that strictly improve objective, numerical quality
+criteria (warning removal, speedup, better platform coverage, more
+parallelism, trap more errors, etc.)</li>
+<li>Additions only likely to be <em>noticed by</em> other developers-of-maplibre-rs,
+invisible to users-of-maplibre-rs.</li>
+</ul>
+<p>If you submit a pull request to implement a new feature without going
+through the RFC process, it may be closed with a polite request to
+submit an RFC first.</p>
+<h2 id="what-the-process-is-1"><a class="header" href="#what-the-process-is-1">What the process is</a></h2>
+<p>In short, to get a major feature added to maplibre-rs, one must first get the
+RFC merged into the RFC repo as a markdown file. At that point the RFC
+is 'active' and may be implemented with the goal of eventual inclusion
+into maplibre-rs.</p>
+<ul>
+<li>Fork the repo https://github.com/maplibre/maplibre-rs</li>
+<li>Copy <code>rfc/0000-template.md</code> to <code>rfc/0000-my-feature.md</code> (where
+'my-feature' is descriptive. don't assign an RFC number yet).</li>
+<li>Fill in the RFC</li>
+<li>Submit a pull request. The pull request is the time to get review of
+the design from the larger community.</li>
+<li>Build consensus and integrate feedback. RFCs that have broad support
+are much more likely to make progress than those that don't receive any
+comments.</li>
+</ul>
+<p>Eventually, somebody on the maplibre-rs team will either accept the RFC by
+merging the pull request, at which point the RFC is 'active', or
+reject it by closing the pull request.</p>
+<p>Who ever merges the RFC should do the following:</p>
+<ul>
+<li>Assign an id, using the PR number of the RFC pull request. (If the RFC
+has multiple pull requests associated with it, choose one PR number,
+preferably the minimal one.)</li>
+<li>Add the file in the <code>docs/src/rfc/</code> directory.</li>
+<li>Create a corresponding issue on <a href="https://github.com/maplibre/maplibre-rs">maplibre-rs repo</a></li>
+<li>Fill in the remaining metadata in the RFC header, including links for
+the original pull request(s) and the newly created maplibre-rs issue.</li>
+<li>Communicate that given RFC is now considered 'active' on the chat platform of maplibre-rs.</li>
+<li>Commit everything.</li>
+</ul>
+<p>Once an RFC becomes active then authors may implement it and submit the
+feature as a pull request to the maplibre-rs repo. An 'active' is not a rubber
+stamp, and in particular still does not mean the feature will ultimately
+be merged; it does mean that in principle all the major stakeholders
+have agreed to the feature and are amenable to merging it.</p>
+<p>Modifications to active RFC's can be done in followup PR's. An RFC that
+makes it through the entire process to implementation is considered
+'complete'; an RFC that fails after becoming active is 'inactive'.</p>
+<h1 id="alternatives-1"><a class="header" href="#alternatives-1">Alternatives</a></h1>
+<p>Retain the current informal RFC process. The newly proposed RFC process is
+designed to improve over the informal process in the following ways:</p>
+<ul>
+<li>Discourage non-actionable or vague RFCs</li>
+<li>Ensure that all serious RFCs are considered equally</li>
+<li>Give confidence to those with a stake in maplibre-rs development that they
+understand why new features are being merged</li>
+</ul>
+<p>As an alternative, we could adopt an even stricter RFC process than the one proposed here.
+If desired, we should likely look to Python's <a href="http://legacy.python.org/dev/peps/pep-0001/">PEP</a> process for inspiration.</p>
+<h1 id="unresolved-questions-2"><a class="header" href="#unresolved-questions-2">Unresolved questions</a></h1>
+<ol>
+<li>Does this RFC strike a favorable balance between formality and agility?</li>
+<li>Does this RFC successfully address the aforementioned issues with the current
+informal RFC process?</li>
+<li>Should we retain rejected RFCs in the archive?</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
             </nav>
 
         </div>
 
-        <script type="text/javascript">
+
+
+
+        <script>
             window.playground_copyable = true;
         </script>
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script type="text/javascript">
+
+        <script>
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
+
+    </div>
     </body>
 </html>

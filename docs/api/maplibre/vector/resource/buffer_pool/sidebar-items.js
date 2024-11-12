@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FEATURE_METADATA_SIZE","INDICES_SIZE","LAYER_METADATA_SIZE","VERTEX_SIZE"],"enum":["BackingBufferType"],"struct":["BackingBuffer","BufferPool","IndexEntry","RingIndex","RingIndexEntry"]};

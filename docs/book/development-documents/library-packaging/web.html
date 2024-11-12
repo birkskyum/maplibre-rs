@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Web - MapLibre Rust Documentation</title>
+
+
         <!-- Custom HTML head -->
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../../favicon.svg">
         <link rel="shortcut icon" href="../../favicon.png">
@@ -16,9 +18,11 @@
         <link rel="stylesheet" href="../../css/general.css">
         <link rel="stylesheet" href="../../css/chrome.css">
         <link rel="stylesheet" href="../../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../../highlight.css">
         <link rel="stylesheet" href="../../tomorrow-night.css">
@@ -26,16 +30,20 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../../diff.css">
-    </head>
-    <body>
+
+
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,50 +59,58 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            html.classList.add("js");
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
+            sidebar_toggle.checked = sidebar === 'visible';
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="../../supported-platforms.html">Supported Platforms</a></li><li class="chapter-item expanded affix "><a href="../../developer-log.html">Developer Log</a></li><li class="chapter-item expanded "><a href="../../user-guide/index.html"><strong aria-hidden="true">1.</strong> User Guide</a></li><li class="chapter-item expanded "><a href="../../development-guide/index.html"><strong aria-hidden="true">2.</strong> Development Guide</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../development-guide/how-to-run.html"><strong aria-hidden="true">2.1.</strong> How to Run Demos</a></li><li class="chapter-item expanded "><a href="../../development-guide/building-libraries.html"><strong aria-hidden="true">2.2.</strong> Building Libraries</a></li><li class="chapter-item expanded "><a href="../../development-guide/debugging.html"><strong aria-hidden="true">2.3.</strong> Debugging</a></li></ol></li><li class="chapter-item expanded "><a href="../../development-documents/index.html"><strong aria-hidden="true">3.</strong> Development Documents</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../development-documents/architecture.html"><strong aria-hidden="true">3.1.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="../../development-documents/design.html"><strong aria-hidden="true">3.2.</strong> Design</a></li><li class="chapter-item expanded "><a href="../../development-documents/caching.html"><strong aria-hidden="true">3.3.</strong> Caching</a></li><li class="chapter-item expanded "><a href="../../development-documents/stencil-masking.html"><strong aria-hidden="true">3.4.</strong> Stencil Masking</a></li><li class="chapter-item expanded "><a href="../../development-documents/font-rendering.html"><strong aria-hidden="true">3.5.</strong> Font Rendering</a></li><li class="chapter-item expanded "><a href="../../development-documents/library-packaging.html"><strong aria-hidden="true">3.6.</strong> Library Packaging</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../development-documents/library-packaging/apple.html"><strong aria-hidden="true">3.6.1.</strong> Apple</a></li><li class="chapter-item expanded "><a href="../../development-documents/library-packaging/android.html"><strong aria-hidden="true">3.6.2.</strong> Android</a></li><li class="chapter-item expanded "><a href="../../development-documents/library-packaging/web.html" class="active"><strong aria-hidden="true">3.6.3.</strong> Web</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../appendix/index.html"><strong aria-hidden="true">4.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../appendix/link-collection.html"><strong aria-hidden="true">4.1.</strong> Link Collection</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -111,6 +127,7 @@
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -124,8 +141,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -142,7 +160,7 @@
 <p>The ESM module format is the standard nowadays which should be followed. If a JS bundler encounters an ESM
 module it can resolve WebAssembly files or WebWorkers dynamically.
 The following syntax is used to resolve referenced WebWorkers:</p>
-<pre><code class="language-ts">new Worker(new URL(&quot;./pool.worker.ts&quot;, import.meta.url), {
+<pre><code class="language-ts">new Worker(new URL("./multithreaded-pool.worker.ts", import.meta.url), {
     type: 'module'
 });
 </code></pre>
@@ -151,7 +169,7 @@ The following syntax is used to resolve referenced WebWorkers:</p>
 </code></pre>
 <h3 id="iife-immediately-invoked-function-expression"><a class="header" href="#iife-immediately-invoked-function-expression">IIFE (immediately-invoked function expression)</a></h3>
 <blockquote>
-<p>This format is used when including maplibre-rs in a <code>&lt;script&gt;</code> tag. The library is &quot;written&quot; onto the window/global
+<p>This format is used when including maplibre-rs in a <code>&lt;script&gt;</code> tag. The library is "written" onto the window/global
 object. This allows quick prototyping/playgrounds/experiments using maplibre-rs.</p>
 </blockquote>
 <p>In order to support this we need to create a bundle which works on any modern browser. Additionally, a WASM file and
@@ -160,8 +178,8 @@ these libraries have to specify where WASM or non-inlined WebWorkers are located
 <p>Both assets could be inlined theoretically. This is common for WebWorkers, but not for WASM files.</p>
 <h3 id="umd"><a class="header" href="#umd">UMD</a></h3>
 <blockquote>
-<p>UMD modules are needed when creating a library which should run in Node as well as browsers. This is not a usecase
-for maplibre-rs. If we support node, then we probably would ship a separate package called &quot;maplibre-rs-node&quot; which
+<p>UMD modules are needed when creating a library which should run in Node as well as browsers. This is not a use case
+for maplibre-rs. If we support node, then we probably would ship a separate package called "maplibre-rs-node" which
 bundles to CJS directly.</p>
 </blockquote>
 <h3 id="cjscommonjs"><a class="header" href="#cjscommonjs">CJS/CommonJS</a></h3>
@@ -217,14 +235,14 @@ all other bundlers.</p>
 <ul>
 <li>IIFI: The esbuild bundler translates to <code>new URL('index_bg.wasm', import.meta.url);</code> to
 <pre><code class="language-js">var __currentScriptUrl__ = document.currentScript &amp;&amp; document.currentScript.src || document.baseURI;
-new URL(&quot;./assets/index_bg.wasm?emit=file&quot;, __currentScriptUrl__);
+new URL("./assets/index_bg.wasm?emit=file", __currentScriptUrl__);
 </code></pre>
 </li>
 </ul>
 <p>See config in <code>web/lib/build.mjs</code> for an example usage.</p>
 <h3 id="babel--typescript"><a class="header" href="#babel--typescript">Babel &amp; TypeScript</a></h3>
 <p>Babel and TypeScript both can produce ESM modules, but they <strong>fail with transforming references within the source code</strong>
-like <code>new URL(&quot;./pool.worker.ts&quot;, import.meta.url)</code>. There exist some Babel plugins, but none of them is stable.
+like <code>new URL("./multithreaded-pool.worker.ts", import.meta.url)</code>. There exist some Babel plugins, but none of them is stable.
 Therefore, we actually need a proper bundler which supports outputting ESM modules.
 The only stable solution to this is Parcel. Parcel also has good documentation around the bundling of WebWorkers.</p>
 <h3 id="webpack"><a class="header" href="#webpack">WebPack</a></h3>
@@ -237,23 +255,23 @@ for WebPack makes including Cargo projects easy.</p>
 </ul>
 <p>Example scripts for <code>package.json</code>:</p>
 <pre><code class="language-json">{
-  &quot;scripts&quot;: {
-    &quot;webpack&quot;: &quot;webpack --mode=development&quot;,
-    &quot;webpack-webgl&quot;: &quot;npm run build -- --env webgl&quot;,
-    &quot;webpack-production&quot;: &quot;webpack --mode=production&quot;,
-    &quot;webpack-webgl-production&quot;: &quot;npm run production-build -- --env webgl&quot;
+  "scripts": {
+    "webpack": "webpack --mode=development",
+    "webpack-webgl": "npm run build -- --env webgl",
+    "webpack-production": "webpack --mode=production",
+    "webpack-webgl-production": "npm run production-build -- --env webgl"
   }
 }
 </code></pre>
 <p>Example config:</p>
-<pre><code class="language-js">const path = require(&quot;path&quot;);
-const webpack = require(&quot;webpack&quot;);
-const WasmPackPlugin = require(&quot;@wasm-tool/wasm-pack-plugin&quot;);
+<pre><code class="language-js">const path = require("path");
+const webpack = require("webpack");
+const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 
 let dist = path.join(__dirname, 'dist/maplibre-rs');
 module.exports = (env) =&gt; ({
-    mode: &quot;development&quot;,
-    entry: &quot;./src/index.ts&quot;,
+    mode: "development",
+    entry: "./src/index.ts",
     experiments: {
         syncWebAssembly: true,
     },
@@ -263,7 +281,7 @@ module.exports = (env) =&gt; ({
     },
     output: {
         path: dist,
-        filename: &quot;maplibre-rs.js&quot;,
+        filename: "maplibre-rs.js",
         library: {
             name: 'maplibre_rs',
             type: 'umd',
@@ -305,14 +323,14 @@ module.exports = (env) =&gt; ({
             // Optional array of absolute paths to directories, changes to which
             // will trigger the build.
             // watchDirectories: [
-            //   path.resolve(__dirname, &quot;another-crate/src&quot;)
+            //   path.resolve(__dirname, "another-crate/src")
             // ],
 
             // The same as the `--out-dir` option for `wasm-pack`
             outDir: path.resolve(__dirname, 'src/wasm-pack'),
 
             // The same as the `--out-name` option for `wasm-pack`
-            // outName: &quot;index&quot;,
+            // outName: "index",
 
             // If defined, `forceWatch` will force activate/deactivate watch mode for
             // `.rs` files.
@@ -327,7 +345,7 @@ module.exports = (env) =&gt; ({
             //
             // the mode `development` makes `wasm-pack` build in `debug` mode.
             // the mode `production` makes `wasm-pack` build in `release` mode.
-            // forceMode: &quot;production&quot;,
+            // forceMode: "production",
 
             // Controls plugin output verbosity, either 'info' or 'error'.
             // Defaults to 'info'.
@@ -341,38 +359,38 @@ module.exports = (env) =&gt; ({
 bundlers documentations around this feature is missing. In the latest Parcel version inlining WebWorkers is not working.</p>
 <ul>
 <li>CJS: The Parcel bundler translates to <code>new URL('index_bg.wasm', import.meta.url);</code>
-to <code>new URL(&quot;index_bg.wasm&quot;, &quot;file:&quot; + __filename);</code>
+to <code>new URL("index_bg.wasm", "file:" + __filename);</code>
 While depending on <code>file:</code> and <code>filename</code> works for NodeJS, it is unsupported in the browser.</li>
 </ul>
 <p>Example scripts for <code>package.json</code>:</p>
 <pre><code class="language-json">{
-  &quot;scripts&quot;: {
-    &quot;parcel&quot;: &quot;npm run clean &amp;&amp; npm run wasm-pack &amp;&amp; WEBGL=false parcel build --no-cache src/index.ts&quot;,
-    &quot;parcel-webgl&quot;: &quot;npm run clean &amp;&amp; FEATURES=web-webgl npm run wasm-pack &amp;&amp; WEBGL=true parcel build --no-cache src/index.ts&quot;
+  "scripts": {
+    "parcel": "npm run clean &amp;&amp; npm run wasm-pack &amp;&amp; WEBGL=false parcel build --no-cache src/index.ts",
+    "parcel-webgl": "npm run clean &amp;&amp; FEATURES=web-webgl npm run wasm-pack &amp;&amp; WEBGL=true parcel build --no-cache src/index.ts"
   }
 }
 </code></pre>
 <p>Example config in `package.json:</p>
 <pre><code class="language-json">{
-  &quot;module&quot;: &quot;dist/parcel-esm/module.js&quot;,
-  &quot;main&quot;: &quot;dist/parcel-cjs/main.js&quot;,
-  &quot;types&quot;: &quot;dist/parcel/types.d.ts&quot;,
-  &quot;targets&quot;: {
-    &quot;main&quot;: {
-      &quot;distDir&quot;: &quot;./dist/parcel-cjs&quot;,
-      &quot;context&quot;: &quot;browser&quot;,
-      &quot;outputFormat&quot;: &quot;commonjs&quot;
+  "module": "dist/parcel-esm/module.js",
+  "main": "dist/parcel-cjs/main.js",
+  "types": "dist/parcel/types.d.ts",
+  "targets": {
+    "main": {
+      "distDir": "./dist/parcel-cjs",
+      "context": "browser",
+      "outputFormat": "commonjs"
     },
-    &quot;module&quot;: {
-      &quot;distDir&quot;: &quot;./dist/parcel-esm&quot;,
-      &quot;context&quot;: &quot;browser&quot;,
-      &quot;outputFormat&quot;: &quot;esmodule&quot;
+    "module": {
+      "distDir": "./dist/parcel-esm",
+      "context": "browser",
+      "outputFormat": "esmodule"
     }
   },
-  &quot;@parcel/transformer-js&quot;: {
-    &quot;inlineFS&quot;: false,
-    &quot;inlineEnvironment&quot;: [
-      &quot;WEBGL&quot;
+  "@parcel/transformer-js": {
+    "inlineFS": false,
+    "inlineEnvironment": [
+      "WEBGL"
     ]
   }
 }
@@ -387,9 +405,11 @@ While depending on <code>file:</code> and <code>filename</code> works for NodeJS
                             <a rel="prev" href="../../development-documents/library-packaging/android.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../../appendix/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+
+                            <a rel="next prefetch" href="../../appendix/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -399,23 +419,33 @@ While depending on <code>file:</code> and <code>filename</code> works for NodeJS
                     <a rel="prev" href="../../development-documents/library-packaging/android.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../../appendix/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+
+                    <a rel="next prefetch" href="../../appendix/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
         </div>
 
-        <script type="text/javascript">
+
+
+
+        <script>
             window.playground_copyable = true;
         </script>
-        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
+
+
+    </div>
     </body>
 </html>

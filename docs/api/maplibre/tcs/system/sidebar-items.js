@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["function","stage"],"struct":["SystemContainer"],"trait":["IntoSystemContainer","System"],"type":["BoxedSystem"]};

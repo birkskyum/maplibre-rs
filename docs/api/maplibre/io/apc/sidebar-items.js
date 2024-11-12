@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CallError","Input","MessageError","ProcedureError","SendError"],"struct":["Message","SchedulerAsyncProcedureCall","SchedulerContext"],"trait":["AsyncProcedureCall","Context","IntoMessage","MessageTag"],"type":["AsyncProcedure","AsyncProcedureFuture"]};
